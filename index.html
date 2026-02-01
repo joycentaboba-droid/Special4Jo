@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pour toi ❤️</title>
+
+  <style>
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff5f9e, #ffc371);
+      color: white;
+      height: 100vh; overflow: hidden;
+      text-align: center; display: flex; justify-content: center; align-items: center;
+    }
+
+    .container {
+      max-width: 600px; margin: 20px; padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    h1 { font-size: 2.2em; margin-bottom: 20px; }
+    h2 { font-size: 1.8em; margin: 30px 0; }
+    p  { font-size: 1.1em; line-height: 1.6; opacity: 0.9; }
+
+    /* --- ZONE DES BOUTONS CORRIGÉE --- */
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px; /* Espace net entre les deux boutons */
+      height: 80px;
+    }
+
+    button {
+      padding: 15px 35px; font-size: 1.1em; font-weight: bold;
+      border: none; border-radius: 50px; cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    #yes { background: #ff2f92; color: white; }
+    #yes:hover { transform: scale(1.1); background: #ff5fa8; }
+
+    #no { background: white; color: #ff2f92; position: relative; }
+
+    #message { margin-top: 20px; font-style: italic; color: #ffe0f0; min-height: 24px; }
+
+    .heart {
+      position: absolute; font-size: 20px;
+      animation: fall 5s linear infinite; z-index: 1;
+    }
+
+    @keyframes fall { from { top: -50px; opacity: 1; } to { top: 100vh; opacity: 0; } }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(1.05); } to { opacity: 1; transform: scale(1); } }
+
+    audio { display: none; }
+  </style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="main-card">
+  <h1>Hi baby 😏 c’est ta darling</h1>
+  <p>
+Depuis que tu occupes une place importante dans ma vie je ne fais que vivre
+    et ressentir des nouvelles choses. Parce qu'avec toi ça n'a jamais été comme
+    avec tout le monde.<br><br>
+
+    Parce qu'avec toi chaque moment compte : chaque minute, chaque sourires,
+    chaque regards, chaque mots murmuré doucement, chaque fou rire et même chaque
+    silence.<br><br>
+
+    Parce que tu as toujours fait preuve d'originalité, aujourd'hui j'ai aussi
+    décidé de faire d'ingéniosité en te demandant...
+  </p>
+  <h2>VEUX-TU ÊTRE MON VALENTIN 💌</h2>
+  <div class="buttons">
+    <button id="yes" onclick="yesClick()">Oui évidemment 💖</button>
+    <button id="no" onmouseover="moveNo()">Non 🙄</button>
+  </div>
+  <div id="message"></div>
+</div>
+
+<script>
+  const messages = ["Oups ! 😅", "Raté 😏", "Essaie encore 😜", "Pas par là ! 😎", "Tu chauffes ! 🔥"];
+
+  function moveNo() {
+    const noBtn = document.getElementById("no");
+    // On passe en position fixed dès qu'on le survole pour qu'il s'échappe partout
+    noBtn.style.position = "fixed";
+    
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    
+    noBtn.style.left = x + "px";
+    noBtn.style.top  = y + "px";
+    
+    document.getElementById("message").innerText = messages[Math.floor(Math.random() * messages.length)];
+  }
+
+  function yesClick() {
+    // 📩 TELEGRAM
+    const chat_id = "1564730252";
+    const token = "8476784692:AAETcBikGxZxdjJhKErUgID1ME0dtk2tThs";
+    const text = "💖 Il a dit OUI ! Joy est sa Valentine 😍";
+    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(text)}`);
+
+    // ✅ Image locale GitHub
+    const imageUrl = "Nous.jpg"; 
+
+    // ✨ PAGE FINALE - IMAGE ÉCLATANTE
+    document.body.innerHTML = `
+      <div style="
+        height: 100vh; width: 100vw;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        background: url('${imageUrl}');
+        background-size: cover; background-position: center;
+        position: fixed; top: 0; left: 0;
+        animation: fadeIn 2s ease-in-out;
+      ">
+        <div style="text-align: center; padding: 20px;">
+          <h1 style="
+            font-size: clamp(2.5em, 8vw, 4.5em); margin: 0; color: white;
+            text-shadow: 4px 4px 15px rgba(0,0,0,0.9), -4px -4px 15px rgba(0,0,0,0.9);
+          ">
+            Je savais que tu dirais oui ️🤭
+          </h1>
+          <p style="
+            font-size: clamp(1.5em, 5vw, 2.5em); margin-top: 20px; color: white; font-weight: bold;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.9), -3px -3px 10px rgba(0,0,0,0.9);
+          ">
+            Rendez-vous le 14 😘
+          </p>
+        </div>
+      </div>
+    `;
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (10 + Math.random() * 25) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+  setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
